@@ -1,0 +1,34 @@
+# Smithery configuration for DJEN (Diário de Justiça)
+# Schema: https://smithery.ai/docs/build/project-config
+# Remote HTTP MCP — server hosted at https://api.mcp.ai/p_djen
+
+name: djen-mcp
+displayName: "DJEN (Diário de Justiça)"
+description: >
+  Diário de Justiça Eletrônico Nacional (CNJ), publicações e intimações judiciais. Busca por OAB, nome de advogado, número de processo, tribunal e data; cada resultado traz o texto completo e o link da certidão. Sem credencial; hospedado pela plataforma. (Diário de Justiça, não é base de jurisprudência/ementas.)
+
+version: 0.1.0
+license: MIT
+homepage: https://github.com/mcp-dir/djen-mcp
+repository: https://github.com/mcp-dir/djen-mcp
+
+tags:
+  - djen
+  - brazil
+  - med
+  - horizontal
+  - read-only
+
+# Remote HTTP MCP — sem startCommand local (servidor já hospedado)
+startCommand:
+  type: http
+  url: https://api.mcp.ai/p_djen
+
+auth:
+  type: oauth2
+  resourceMetadataUrl: https://api.mcp.ai/p_djen/.well-known/oauth-protected-resource
+  fallback:
+    type: agent-auth
+    description: >
+      Para clientes sem OAuth 2.1. O agente expõe uma tool authenticate(token).
+      Usuário gera o JWT em https://app.mcp.ai/agent-auth e cola no chat.
